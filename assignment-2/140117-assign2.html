@@ -1,0 +1,85 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>Adventure Time</title>
+	<meta charset="utf8">
+</head>
+
+<body>
+
+<script>
+
+var trip = confirm("Are you packed and ready for a trip?\nIf so, press OK.");
+
+if (trip) {
+// wants to go on a trip
+	var climate = prompt("Do you prefer hot or cold climates?");
+
+	climate = climate.toLowerCase();
+	
+	if (climate == "hot") {
+	//determine how hot
+		var temp = prompt("How hot can you stand?\nEnter a temperature between 90 and 110 degrees (fahrenheit, please!)");
+
+		temp = Number(temp);
+
+		if (temp >= 100) {
+			console.log("We're goin' to Joshua Tree!");
+		} else if (temp >= 90) {
+		//temp between 90 and 100
+			console.log("We're goin' to Austin, TX!");
+		} else {
+			console.log("I thought you wanted to go somewhere hot!");
+		}
+	} else if (climate == "cold") {
+	//cold destination
+		console.log("We're goin' to Alaska!");
+	} else {
+	//mild destination
+		console.log("Looks like you'd prefer to go somewhere mild. We're goin' to Spain.");
+	}
+	
+
+
+} else {
+// no trip today
+	var play = confirm("Well, I guess you'd rather just stay at home.\nDo you want to play a game instead? If so, press OK.");
+
+	if (play) {
+	//three game choices
+		var game = prompt("Ok, which one shall we play?\nCheckers, Ticket to Ride, or Small World?");
+
+		game = game.toLowerCase();
+		
+		switch (game) {
+		
+			case "checkers":
+			console.log("Ok, but I'm red.");
+			break;
+			
+			case "ticket to ride":
+			console.log("Awesome. I always win Ticket to Ride.");
+			break;
+			
+			case "small world":
+			console.log("Ugh. I really don't like that game.");
+			break;
+			
+			default:
+			console.log("Hmmm, I've never heard of that game.");
+			break;
+	
+		}
+		
+	} else {
+	//party pooper
+		console.log("Cheer up. Let's go get a drink instead.");
+	}
+}
+
+</script>
+
+</body>
+
+</html>
