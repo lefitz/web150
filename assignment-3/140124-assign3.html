@@ -1,0 +1,74 @@
+<!doctype html>
+
+<html>
+<head>
+	<title>Around the World</title>
+	<meta charset=utf8>
+</head>
+
+<body>
+	<h1>Military Expenditures Around the World</h1>
+</body>
+
+<script src="expenditures.js"></script>
+
+<script>
+
+//solving for country with the highest expenditures
+var highestExp = expenditures[0];
+
+//solving for country with the lowest expenditures
+var lowestExp = expenditures[0];
+
+//solving for average military expenditures
+var totalExp = 0;
+var countryCount = 0;
+
+//solving for more than 5% spent
+var bigSpenders = 0;
+
+//solving for average expenditures just for North America (Canada, the US, and Mexico)
+var totalNorthAm = 0;
+
+//average expenditures excluding North America
+var totalNonNorthAm = 0;
+var counterNonNorthAm = 0;
+
+for (i = 0; i < expenditures.length; i++) {
+	var current = expenditures[i];
+
+	totalExp += Number(current.amount);
+
+	if (current.amount > highestExp.amount) {
+		highestExp = current;
+	}
+
+	if (current.amount < lowestExp.amount) {
+		lowestExp = current;
+	}
+
+	countryCount++;
+
+	if (current.amount >= 5) {
+		bigSpenders++;
+	}
+
+	if (current.country == "Canada" || current.country == "United States" || current.country == "Mexico") {
+		totalNorthAm += Number(current.amount);
+	} else {
+		totalNonNorthAm += Number(current.amount);
+		counterNonNorthAm++;
+	}
+
+}
+
+console.log('The country with the highest expenditures is: ' + highestExp.country);
+console.log('The country with the lowest expenditures is: ' + lowestExp.country);
+console.log('The average expenditures for all countries: ' + (totalExp / countryCount));
+console.log(bigSpenders + ' countries spend more than 5% of GDP on their military.');
+console.log('Average expenditures for North America are: ' + (totalNorthAm / 3));
+console.log('If we exclude North America, the average expenditures are: ' + (totalNonNorthAm / counterNonNorthAm));
+
+</script>
+
+</html>
