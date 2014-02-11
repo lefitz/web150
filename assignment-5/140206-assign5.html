@@ -1,0 +1,97 @@
+<!doctype html>
+<head>
+    <title>Britpop!</title>
+    <meta charset="utf-8">
+    <link href='http://fonts.googleapis.com/css?family=Fugaz+One' rel='stylesheet' type='text/css'>
+    <link href="britpop.css" rel=stylesheet type=text/css>
+</head>
+
+<body>
+
+<div class="wrapper">
+    <h1><img src="images/britpop.png" alt="britpop" /></h1>
+
+    <div class="sidebar">
+        <ul class="thumbnails">
+            <li class="active"><a href="#blur"><img src="images/blur_sm.jpg" alt="blur" ></a></li>
+            <li><a href="#oasis"><img src="images/oasis_sm.jpg" alt="oasis" ></a></li>
+            <li><a href="#suede"><img src="images/suede_sm.jpg" alt="suede" ></a></li>
+            <li><a href="#pulp"><img src="images/pulp_sm.jpg" alt="pulp" ></a></li>
+        </ul>
+    </div>
+
+    <div class="main">
+
+        <div class="lgPhoto" id="blur">
+            <img src="images/blur_lg.jpg" alt="blur" />
+            <p>Blur</p>
+        </div>
+
+        <div class="lgPhoto" id="oasis">
+            <img src="images/oasis_lg.jpg" alt="oasis" />
+            <p>Oasis</p>
+        </div>
+
+        <div class="lgPhoto" id="suede">
+            <img src="images/suede_lg.jpg" alt="suede" />
+            <p>Suede</p>
+        </div>
+
+        <div class="lgPhoto" id="pulp">
+            <img src="images/pulp_lg.jpg" alt="pulp" />
+            <p>Pulp</p>
+        </div>
+
+        <a class="arrow" id="back" href="#">&#10094; Back</a> <a class="arrow" id="next" href="#">Next &#10095;</a>
+
+    </div>
+</div>
+
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script>
+
+var thumb = $('.thumbnails a');
+thumb.on('click', function(e) {
+    $('.lgPhoto:visible').hide(); // hide current large image
+    var $this = $(this);
+    var href = $this.attr('href'); // get href of clicked thumbnail
+    var image = $(href);
+    image.fadeIn(); // show matched image
+    e.preventDefault();
+    $('.active').removeClass('active');
+    var li = $this.closest('li'); // finds closest li tag that was clicked
+    li.addClass('active'); // adds active class to li
+});
+
+thumb.filter(':first').click(); // show first image when page loads
+
+var arrows = $('.arrow');
+arrows.on('click', function() {
+    var $this = $(this);
+    var id = $this.attr('id'); // get id of click arrow (back or next)
+    var index = $('.active').index(); // get index of li with active class
+
+    if (id == 'next') { // if id is next, show next image
+        var nextIndex = index + 1; // add 1 to index to move forward
+        if (nextIndex == $('.thumbnails li').length) { // if reach last li, set nextIndex to first li's index
+            nextIndex = 0;
+        }
+        var li = $('.thumbnails li').eq(nextIndex); // use nextIndex to find matching li index
+        var image = li.find('a'); // find child a of li
+        image.click();
+    } else { // if id is back, show previous image 
+        var prevIndex = index - 1; // subtract 1 to move backwards
+        if (prevIndex == -1) { // if reach first li, prevIndex will be -1 so set prevIndex to last li index
+            prevIndex = $('.thumbnails li').length - 1; // the last li index is the array length minus 1
+        }
+        var li = $('.thumbnails li').eq(prevIndex);
+        var image = li.find('a');
+        image.click();
+    }
+});
+
+</script>
+</body>
+
+
+
