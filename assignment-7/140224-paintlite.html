@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+<head>
+	<title>Paint Lite</title>
+	<meta charset="utf-8">
+	<style>
+		canvas {
+			display: block;
+			border: 1px solid black;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Paint Lite</h1>
+	
+	<button class="shape" data-shape="square">Square</button>
+	<button class="shape" data-shape="circle">Round</button> |
+	<button class="size" data-size="10">Small</button>
+	<button class="size" data-size="20">Medium</button> |
+	<button class="color" data-color="black">Black</button>
+	<button class="color" data-color="pink">Pink</button>
+	<button class="color" data-color="plum">Plum</button> |
+	<button class="stamp" data-src="unicorn.png">Unicorn</button>
+	<button class="stamp" data-src="donut.png">Donut</button> |
+	<button class="erase" data-erase="clear">Erase Canvas</button>
+	
+	<canvas id="canvas" width=700 height=500>Paint Lite requires canvas, but your browser does not support it.</canvas>
+
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script>
+
+	var canvas = document.getElementById("canvas");
+	var context = canvas.getContext("2d");
+	
+	var $canvas = $(canvas);
+	
+	var brush = {
+		currentBrush: "shape",
+		active: false,
+		shape: "circle",
+		size: 10,
+		color: "black",
+		stamp: "unicorn.png"
+	};
+	
+	var drawRect = function(x, y, size) {
+		context.fillRect(x - size / 2, y - size / 2, size, size);
+	};
+	
+	var drawCircle = function(x, y, size) {
+		context.beginPath();
+		context.arc(x, y, size / 2, 0, 2 * Math.PI);
+		context.fill();
+	};
+
+	var drawStamp = function(stamp, x, y) {
+		var img = new Image();
+		img.src = stamp;
+		img.onload = function() {
+			var imgWidth = img.width;
+			var imgHeight = img.height;
+
+			context.drawImage(img, x - (imgWidth / 2), y - (imgHeight / 2));
+		};
+	};
+	
+	$canvas.on("mousemove", function(e) {
+		var offset = $canvas.offset();
+		var x = e.pageX - offset.left;
+		var y = e.pageY - offset.top;
+		
+		if (brush.active) {
+			context.fillStyle = brush.color;
+
+			if (brush.currentBrush == "shape")  {
+				if (brush.shape == "circle") {
+				drawCircle(x, y, brush.size);
+				} else if (brush.shape == "square") {
+					drawRect(x, y, brush.size);
+				}
+			} 
+		}
+	});
+
+	$canvas.on("click", function(e) {
+		if ( brush.currentBrush != "stamp") {
+			return;
+		}
+
+		var offset = $canvas.offset();
+		var x = e.pageX - offset.left;
+		var y = e.pageY - offset.top;
+
+		if (brush.stamp == "unicorn.png") {
+			drawStamp(brush.stamp, x, y);
+		} else if (brush.stamp == "donut.png") {
+			drawStamp(brush.stamp, x, y);
+		}
+	});
+	
+	$canvas.on("mousedown mouseup", function(e) {
+		brush.active = e.type == "mousedown";
+	});
+	
+	var shapes = $(".shape");
+	shapes.on("click", function(e) {
+		var $this = $(this);
+		var shape = $this.attr("data-shape");
+		brush.shape = shape;
+		brush.currentBrush = "shape";
+	});
+	
+	var sizes = $(".size");
+	sizes.on("click", function() {
+		var $this = $(this);
+		var size = $this.attr("data-size");
+		brush.size = size;
+		brush.currentBrush = "shape";
+	});
+	
+	var colors = $(".color");
+	colors.on("click", function() {
+		var $this = $(this);
+		var color = $this.attr("data-color");
+		brush.color = color;
+		brush.currentBrush = "shape";
+	});
+
+	var stamps = $(".stamp");
+	stamps.on("click", function() {
+		var $this = $(this);
+		var stamp = $this.attr("data-src");
+		brush.stamp = stamp;
+		brush.currentBrush = "stamp";
+	});
+
+	var clear = $(".erase");
+	clear.on("click", function() {
+		context.clearRect(0, 0, canvas.width, canvas.height);
+	});
+
+</script>
+</body>
+
+
+</html>
