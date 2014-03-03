@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <title>Mystic Ball</title>
+    <meta charset="utf-8">
+    <link href='http://fonts.googleapis.com/css?family=Condiment' rel='stylesheet' type='text/css'>
+    <link href='magic8.css' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <div class="wrapper">
+
+        <h1>Mystic Ball</h1>
+        <h3>Ask a Question...</h3>
+        <h3>Click the Ball for the Answer!</h3>
+
+        <div class="ball">
+            <div class="center">
+                <div class="triangle">
+                    <div class="answer"></div>
+                </div>
+             </div>
+        </div>
+
+    </div>
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<script>
+
+    var shakeBall = function() {
+        var request = $.ajax({
+            url: "http://thomaswilburn.net:8080/magic8",
+            dataType: "jsonp"
+        });
+
+        request.done(function(data) {
+            $('.answer').html(data.answer);
+        });
+    };
+ 
+    $('.ball').on("click", function() {
+        $('.triangle').css('display', 'none');
+        $('.triangle').fadeIn(1000);
+        shakeBall();
+        $('.ball').addClass('shake');
+        setTimeout(function() {
+            $('.ball').removeClass('shake');
+        }, 2000);
+    });
+
+</script>
+
+</body>
+</html>
