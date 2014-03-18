@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+    <title>Class Schedule</title>
+    <meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: Verdana, Arial, sans-serif;
+        }
+
+        table {
+            border-spacing: 0;
+            border-collapse: collapse;
+        }
+
+        td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+
+        .className {
+            background-color: #2FAEFF;
+        }
+
+        .credits {
+            font-size: 0.8em;
+        }
+
+        .heading {
+            background-color: #eee;
+            font-weight: bold;
+        }
+
+        .ui-button-text {
+            font-size: 0.8em;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Addition to SCCC class schedule page so that a user can register for a class directly from the schedule --> 
+    <h1>Class Schedule</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <td class="className" colspan="4">WEB 110 WEB AUTHORING I</td>
+                <td class="credits">4 CREDITS</td>
+            </tr>
+            <tr class="heading">
+                <td>Item No</td>
+                <td>Days</td>
+                <td>Time</td>
+                <td>Instructor</td>
+                <td>Status</td>
+            </tr>
+            <tr>
+                <td><button class="info modal-btn" data-modal="#dialog1">3233.01</button></td>
+                <td>MW</td>
+                <td>1:00 pm - 2:00 pm</td>
+                <td>WILBURN, THOMAS</td>
+                <td>OPEN</td>
+            </tr>
+            <tr>
+                <td><button class="info modal-btn" data-modal="#dialog2">3234.02</button></td>
+                <td>TTh</td>
+                <td>1:00 pm - 2:00 pm</td>
+                <td>WILBURN, THOMAS</td>
+                <td>WAITLIST</td>
+            </tr>
+            <tr>
+                <td class="className" colspan="4">WEB 170 CONTENT MGMT SYSTEM</td>
+                <td class="credits">5 CREDITS</td>
+            </tr>
+            <tr class="heading">
+                <td>Item No</td>
+                <td>Days</td>
+                <td>Time</td>
+                <td>Instructor</td>
+                <td>Status</td>
+            </tr>
+            <tr>
+                <td><button class="info modal-btn" data-modal="#dialog3">3243.01</button></td>
+                <td>MW</td>
+                <td>3:00 pm - 5:00 pm</td>
+                <td>WILBURN, THOMAS</td>
+                <td>OPEN</td>
+            </tr>
+            <tr>
+                <td><button class="info modal-btn" data-modal="#dialog4">3244.02</button></td>
+                <td>TTh</td>
+                <td>5:00 pm - 7:00 pm</td>
+                <td>WILBURN, THOMAS</td>
+                <td>WAITLIST</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="dialog1" class="dialog" title="Class Details">
+      <p>WEB 110 WEB AUTHORING I</p>
+      <p>Section: 3233.01</p>
+      <p>Info about class...</p>
+      <button class="register">Register for class</button>
+    </div>
+
+    <div id="dialog2" class="dialog" title="Class Details">
+      <p>WEB 110 WEB AUTHORING I</p>
+      <p>Section: 3234.02</p>
+      <p>Info about class...</p>
+      <button class="register">Register for class</button>
+    </div>
+
+    <div id="dialog3" class="dialog" title="Class Details">
+      <p>WEB 170 CONTENT MGMT SYSTEM</p>
+      <p>Section: 3243.01</p>
+      <p>Info about class...</p>
+      <button class="register">Register for class</button>
+    </div>
+
+    <div id="dialog4" class="dialog" title="Class Details">
+      <p>WEB 170 CONTENT MGMT SYSTEM</p>
+      <p>Section: 3244.02</p>
+      <p>Info about class...</p>
+      <button class="register">Register for class</button>
+    </div>
+
+<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script>
+    var info = $(".info");
+    // enhance button with info icon
+    info.button({
+        icons: {
+            primary: "ui-icon-info"
+        }
+    });
+
+    var register = $(".register");
+    // enhance register button with icon
+    register.button({
+        icons: {
+            primary: "ui-icon-cart"
+        }
+    });
+
+    $(".dialog").dialog({
+        // use modal dialog with opening clip effect
+        autoOpen: false,
+        modal: true,
+        show: {
+            effect: "clip",
+        }    
+    });
+
+    $(".modal-btn").on('click', function(){
+        // show corresponding class dialog box
+        var key = $(this).data('modal'); // get the value of clicked button - ex: "#dialog4"
+        $(key).dialog('open'); // invoke open method of dialog
+    });
+
+</script>
+</body>
+</html>
